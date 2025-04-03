@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Heart's Bakery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+        <!-- This is where the countdown will be displayed -->
+        <p id="countdownMessage"></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            
+            var correctUsername = 'admin123';
+            var correctPassword = 'admin123';
+
+            
+            if (username === correctUsername && password === correctPassword) {
+                window.location.href = 'dashboard.html'; 
+            } else {
+                
+                alert('Incorrect username or password. Please try again.');
+
+               
+                document.getElementById('username').disabled = true;
+                document.getElementById('password').disabled = true;
+                document.querySelector('button').disabled = true;
+
+                
+                var countdownTime = 10;
+                var countdownMessage = document.getElementById('countdownMessage');
+                countdownMessage.textContent = `Please wait ${countdownTime} seconds...`;
+
+               
+                var countdownInterval = setInterval(function () {
+                    countdownTime--;
+                    countdownMessage.textContent = `Please wait ${countdownTime} seconds...`;
+
+                    if (countdownTime <= 0) {
+                        clearInterval(countdownInterval); 
+                        countdownMessage.textContent = ''; 
+                    }
+                }, 1000); 
+
+                
+                setTimeout(function () {
+                    document.getElementById('username').disabled = false;
+                    document.getElementById('password').disabled = false;
+                    document.querySelector('button').disabled = false;
+                }, 10000); 
+            }
+        });
+    </script>
+</body>
+</html>
